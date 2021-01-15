@@ -13,7 +13,7 @@ Camera::Camera(int WindowWidth, int windowHeight)
 	far = 100.0f;
 	theta = 0.0f;
 	phi = 90.0f;
-	cameraSpeed = 0.05f;
+	cameraSpeed = 5.0f;
 	zoom_factor = 1.1f;
 
 	eye = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -41,22 +41,22 @@ glm::mat4 Camera::GetProjectionMatrix()
 	return projectionMatrix;
 }
 
-void Camera::GoForward()
+void Camera::GoForward(float deltaTime)
 {
-	eye += cameraSpeed * center;
+	eye += center * cameraSpeed * deltaTime;
 }
 
-void Camera::GoBack()
+void Camera::GoBack(float deltaTime)
 {
-	eye -= cameraSpeed * center;
+	eye -= center * cameraSpeed * deltaTime;
 }
 
-void Camera::GoLeft()
+void Camera::GoLeft(float deltaTime)
 {
-	eye -= glm::normalize(glm::cross(center, up)) * cameraSpeed;
+	eye -= glm::normalize(glm::cross(center, up)) * cameraSpeed * deltaTime;
 }
 
-void Camera::GoRight()
+void Camera::GoRight(float deltaTime)
 {
-	eye += glm::normalize(glm::cross(center, up)) * cameraSpeed;
+	eye += glm::normalize(glm::cross(center, up)) * cameraSpeed * deltaTime;
 }

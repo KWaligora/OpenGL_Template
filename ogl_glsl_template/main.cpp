@@ -11,6 +11,10 @@ constexpr int HEIGHT = 600; // wysokosc okna
 //******************************************************************************************
 Camera* camera; // operacje na macierzach projekcji i widoku
 Floor* plane;
+//******************************************************************************************
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+//******************************************************************************************
 
 float aspectRatio = static_cast<float>(WIDTH) / HEIGHT;
 
@@ -69,6 +73,10 @@ int main(int argc, char* argv[])
 	// glowna petla programu
 	while( !glfwWindowShouldClose( window ) )
 	{
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		renderScene();
 
 		glfwSwapBuffers( window ); // zamieniamy bufory
@@ -111,19 +119,19 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 
 		case GLFW_KEY_A:
-			camera->GoLeft();
+			camera->GoLeft(deltaTime);
 			break;
 
 		case GLFW_KEY_D:
-			camera->GoRight();
+			camera->GoRight(deltaTime);
 			break;
 
 		case GLFW_KEY_W:
-			camera->GoForward();
+			camera->GoForward(deltaTime);
 			break;
 
 		case GLFW_KEY_S:
-			camera->GoBack();
+			camera->GoBack(deltaTime);
 			break;
 
 		default:

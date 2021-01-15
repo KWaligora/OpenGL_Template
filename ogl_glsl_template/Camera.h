@@ -16,10 +16,10 @@ public:
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjectionMatrix();
 
-	void GoForward();
-	void GoBack();
-	void GoLeft();
-	void GoRight();
+	void GoForward(float deltaTime);
+	void GoBack(float deltaTime);
+	void GoLeft(float deltaTime);
+	void GoRight(float deltaTime);
 
 private:
 	glm::mat4 viewMatrix;
