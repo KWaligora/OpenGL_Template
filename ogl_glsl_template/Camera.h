@@ -18,13 +18,15 @@ public:
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjectionMatrix();
 
-	void UpdateEyePosition();
+	
 	void UpdateProjectionMatrix();
 
 	void TurnLeft();
 	void TurnRight();
 	void TurnUp();
 	void TurnDown();
+	void GoForward();
+	void GoBack();
 	void GoUp();
 	void GoDown();
 
@@ -39,10 +41,13 @@ private:
 	float far;
 	float theta;
 	float phi;
-	float ROT_STEP = 5.0f;
+	float ROT_STEP;
+	float zoom_factor;
 
 	glm::vec3 eye; // pozycja oka w ukladzie swiata
 	glm::vec3 center; // punkt na ktory patrzymy
 	glm::vec3 up; // wektor do gory
+
+	void UpdateEyePosition();
 };
 

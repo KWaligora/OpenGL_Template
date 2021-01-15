@@ -12,6 +12,8 @@ Camera::Camera(int WindowWidth, int windowHeight)
 	far = 100.0f;
 	theta = 0.0f;
 	phi = 90.0f;
+	ROT_STEP = 5.0f;
+	zoom_factor = 1.1f;
 
 	eye = glm::vec3(0.0f, 0.0f, radius);
 	center = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -103,5 +105,20 @@ void Camera::TurnDown()
 	{
 		phi -= ROT_STEP;
 		UpdateEyePosition();
+	}
+}
+
+void Camera::GoForward()
+{
+	FOV /= zoom_factor;
+	UpdateProjectionMatrix();
+}
+
+void Camera::GoBack()
+{
+	if (zoom_factor * FOV < 180.0f)
+	{
+		FOV *= zoom_factor;
+		UpdateProjectionMatrix();
 	}
 }

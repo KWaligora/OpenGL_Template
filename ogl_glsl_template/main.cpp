@@ -126,6 +126,14 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 			camera->TurnDown();
 			break;
 
+		case GLFW_KEY_UP:
+			camera->GoForward();
+			break;
+
+		case GLFW_KEY_DOWN:
+			camera->GoBack();
+			break;
+
 		default:
 			break;
 		}
