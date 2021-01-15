@@ -18,7 +18,16 @@ public:
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjectionMatrix();
 
-	void UpdateEyePosition(float theta, float phi);
+	void UpdateEyePosition();
+
+	void TurnLeft();
+	void TurnRight();
+	void TurnUp();
+	void TurnDown();
+	void GoUp();
+	void GoDown();
+
+	
 
 private:
 	glm::mat4 viewMatrix;
@@ -31,6 +40,7 @@ private:
 	float far;
 	float theta;
 	float phi;
+	float ROT_STEP = 5.0f;
 
 	glm::vec3 eye; // pozycja oka w ukladzie swiata
 	glm::vec3 center; // punkt na ktory patrzymy

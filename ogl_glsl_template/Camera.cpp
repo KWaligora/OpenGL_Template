@@ -57,7 +57,7 @@ glm::mat4 Camera::GetProjectionMatrix()
 	return projectionMatrix;
 }
 
-void Camera::UpdateEyePosition(float theta, float phi)
+void Camera::UpdateEyePosition()
 {
 	Camera::theta = theta;
 	Camera::phi = phi;
@@ -65,4 +65,38 @@ void Camera::UpdateEyePosition(float theta, float phi)
 	eye.x = center.x + radius * glm::sin(glm::radians(theta)) * glm::sin(glm::radians(phi));
 	eye.y = center.y + radius * glm::cos(glm::radians(phi));
 	eye.z = center.z + radius * glm::cos(glm::radians(theta)) * glm::sin(glm::radians(phi));
+}
+
+void Camera::TurnLeft() 
+{
+	theta += ROT_STEP;
+	if (theta > 360.0f)
+		theta -= 360.0f;
+	UpdateEyePosition();
+}
+
+void Camera::TurnRight()
+{
+	theta -= ROT_STEP;
+	if (theta < 0.0f)
+		theta += 360.0f;
+	UpdateEyePosition();
+}
+
+void Camera::TurnUp() 
+{
+	if (phi + ROT_STEP < 180.0f)
+	{
+		phi += ROT_STEP;
+		UpdateEyePosition();
+	}
+}
+
+void Camera::TurnDown() 
+{
+	if (phi - ROT_STEP > 0.0f)
+	{
+		phi -= ROT_STEP;
+		UpdateEyePosition();
+	}
 }

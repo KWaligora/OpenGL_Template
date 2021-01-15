@@ -102,8 +102,34 @@ void errorCallback( int error, const char* description )
 **------------------------------------------------------------------------------------------*/
 void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mods )
 {
-	if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
-		glfwSetWindowShouldClose( window, GLFW_TRUE );
+	if (action == GLFW_PRESS || action == GLFW_REPEAT) 
+	{
+		switch (key)
+		{
+		case GLFW_KEY_ESCAPE:
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+			break;
+
+		case GLFW_KEY_A:
+			camera->TurnLeft();
+			break;
+
+		case GLFW_KEY_D:
+			camera->TurnRight();
+			break;
+
+		case GLFW_KEY_W:
+			camera->TurnUp();
+			break;
+
+		case GLFW_KEY_S:
+			camera->TurnDown();
+			break;
+
+		default:
+			break;
+		}
+	}
 }
 
 /*------------------------------------------------------------------------------------------
