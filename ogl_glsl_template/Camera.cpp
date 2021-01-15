@@ -37,12 +37,12 @@ void Camera::SetProjectionMatrix()
 	projectionMatrix = glm::perspective(glm::radians(FOV), aspecRation, near, far);
 }
 
-void Camera::SetProjectionMatrix(float fov, float aspecRation, float near, float far)
+void Camera::SetProjectionMatrix(float fov, float aspecRatio, float near, float far)
 {
-	projectionMatrix = glm::perspective(glm::radians(FOV), aspecRation, near, far);
+	projectionMatrix = glm::perspective(glm::radians(FOV), aspecRatio, near, far);
 
 	Camera::FOV = fov;
-	Camera::aspecRation = aspecRation;
+	Camera::aspecRation = aspecRatio;
 	Camera::near = near;
 	Camera::far = far;
 }
@@ -65,6 +65,11 @@ void Camera::UpdateEyePosition()
 	eye.x = center.x + radius * glm::sin(glm::radians(theta)) * glm::sin(glm::radians(phi));
 	eye.y = center.y + radius * glm::cos(glm::radians(phi));
 	eye.z = center.z + radius * glm::cos(glm::radians(theta)) * glm::sin(glm::radians(phi));
+}
+
+void Camera::UpdateProjectionMatrix()
+{
+	projectionMatrix = glm::perspective(glm::radians(FOV), aspecRation, near, far);
 }
 
 void Camera::TurnLeft() 

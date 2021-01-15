@@ -19,6 +19,7 @@ public:
 	glm::mat4 GetProjectionMatrix();
 
 	void UpdateEyePosition();
+	void UpdateProjectionMatrix();
 
 	void TurnLeft();
 	void TurnRight();
@@ -26,8 +27,6 @@ public:
 	void TurnDown();
 	void GoUp();
 	void GoDown();
-
-	
 
 private:
 	glm::mat4 viewMatrix;
