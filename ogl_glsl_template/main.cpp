@@ -111,26 +111,18 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 
 		case GLFW_KEY_A:
-			camera->TurnLeft();
+			camera->GoLeft();
 			break;
 
 		case GLFW_KEY_D:
-			camera->TurnRight();
+			camera->GoRight();
 			break;
 
 		case GLFW_KEY_W:
-			camera->TurnUp();
-			break;
-
-		case GLFW_KEY_S:
-			camera->TurnDown();
-			break;
-
-		case GLFW_KEY_UP:
 			camera->GoForward();
 			break;
 
-		case GLFW_KEY_DOWN:
+		case GLFW_KEY_S:
 			camera->GoBack();
 			break;
 
