@@ -200,7 +200,7 @@ void initGL()
 	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 	canvas->SetTexture(L"textures/bush1.png");
-	canvas->SetTranslation(glm::vec3(0.0f, 1.0f, 0.0f));
+	canvas->SetTranslation(glm::vec3(0.0f, 1.0f, 0.0f));	
 }
 
 /*------------------------------------------------------------------------------------------
@@ -213,5 +213,6 @@ void renderScene()
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(camera->Zoom), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 	
 	ground->Render(projectionMatrix, camera->GetViewMatrix());
+	canvas->Bilbording(camera->getCameraPos());
 	canvas->Render(projectionMatrix, camera->GetViewMatrix());
 }

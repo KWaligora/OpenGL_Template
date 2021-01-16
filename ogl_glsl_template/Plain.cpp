@@ -2,6 +2,7 @@
 #include "Plain.h"
 #include "Texture.h"
 #include "shaders.h"
+#include <iostream>
 
 Plain::Plain()
 {
@@ -12,6 +13,9 @@ Plain::Plain()
 	texture = tex.SetupTextures(L"textures/diffuse.png");
 
 	modelMatrix = glm::mat4(1.0f);
+	rotationMatrix = glm::mat4(1.0f);
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
+	normal = glm::vec3(0.0f, 0.0f, -1.0f);
 }
 
 Plain::Plain(std::string vert, std::string frag)
@@ -23,6 +27,11 @@ Plain::Plain(std::string vert, std::string frag)
 	texture = tex.SetupTextures(L"textures/diffuse.png");
 
 	modelMatrix = glm::mat4(1.0f);
+	rotationMatrix = glm::mat4(1.0f);
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
+	normal = glm::vec3(0.0f, 0.0f, -1.0f);
+
+
 }
 
 void Plain::SetShader(std::string vert, std::string frag)
@@ -101,10 +110,15 @@ void Plain::SetScale(glm::vec3 scale)
 void Plain::SetRotation(float rotation, glm::vec3 axis)
 {
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), axis);
+
+	/*rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation), axis);
+	normal = glm::normalize(rotationMatrix * glm::vec4(normal, 1.0f));*/
+
 }
 void Plain::SetTranslation(glm::vec3 translation)
 {
 	modelMatrix = glm::translate(modelMatrix, translation);
+	position += translation;
 }
 
 void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
@@ -134,6 +148,29 @@ void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	glBindVertexArray(0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	
+}
+
+void Plain::Bilbording(glm::vec3 camPos)
+{
+	glm::vec3 newNormal = camPos - position;
+
+	std::cout << camPos.x << " ";
+
+	newNormal = glm::normalize(newNormal);
+	if (newNormal != normal)
+	{
+		float angle = glm::acos(glm::dot(normal, newNormal));
+		modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+
+		normal = newNormal;
+	}
+}
+
+void Plain::PrintVector(glm::vec3 vector)
+{
+	std::cout << "Current Position: " << vector.x << " " << vector.y << " " << vector.z<<std::endl;
 }
 
 Plain::~Plain()
