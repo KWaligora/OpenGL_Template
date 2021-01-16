@@ -15,10 +15,15 @@ Floor* plane;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 //******************************************************************************************
+float lastX = WIDTH / 2.0f;
+float lastY = HEIGHT / 2.0f;
+bool firstMouse = true;
+//******************************************************************************************
 
 float aspectRatio = static_cast<float>(WIDTH) / HEIGHT;
 
 void errorCallback( int error, const char* description );
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mods );
 void onShutdown();
 void initGL();
@@ -47,7 +52,10 @@ int main(int argc, char* argv[])
 		exit( EXIT_FAILURE );
 	}
 
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	glfwSetKeyCallback( window, keyCallback ); // rejestracja funkcji zwrotnej do oblsugi klawiatury
+	glfwSetCursorPosCallback(window, mouse_callback); // rejestracja funkcji zwrotnej do oblsugi myszki
 
 	glfwMakeContextCurrent( window );
 
@@ -100,6 +108,24 @@ void errorCallback( int error, const char* description )
 	std::cerr << "Error: " << description << std::endl;
 }
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera->ProcessMouseMovement(xoffset, yoffset);
+}
+
 /*------------------------------------------------------------------------------------------
 ** funkcja zwrotna do obslugi klawiatury
 ** window - okno, które otrzymalo zdarzenie
@@ -119,19 +145,19 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 			break;
 
 		case GLFW_KEY_A:
-			camera->GoLeft(deltaTime);
+			camera->ProcessKeyboard(LEFT, deltaTime);
 			break;
 
 		case GLFW_KEY_D:
-			camera->GoRight(deltaTime);
+			camera->ProcessKeyboard(RIGHT, deltaTime);
 			break;
 
 		case GLFW_KEY_W:
-			camera->GoForward(deltaTime);
+			camera->ProcessKeyboard(FORWARD, deltaTime);
 			break;
 
 		case GLFW_KEY_S:
-			camera->GoBack(deltaTime);
+			camera->ProcessKeyboard(BACKWARD, deltaTime);
 			break;
 
 		default:
@@ -174,9 +200,6 @@ void initGL()
 void renderScene()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // czyszczenie bufora koloru
-
-	camera->SetViewMatrix();
-	camera->SetProjectionMatrix();
-
-	plane->Render(camera);
+	glm::mat4 projectionMatrix = glm::perspective(glm::radians(camera->Zoom), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+	plane->Render(projectionMatrix, camera->GetViewMatrix());
 }

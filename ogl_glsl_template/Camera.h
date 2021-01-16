@@ -1,43 +1,45 @@
 #pragma once
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
+// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
+enum Camera_Movement
+{
+    FORWARD,
+    BACKWARD,
+    LEFT,
+    RIGHT
+};
+
 class Camera
 {
-public:
-	Camera(int WindowWidth = 600, int windowHeight = 600);
-
-	void SetViewMatrix();
-
-	void SetProjectionMatrix();
-
-	glm::mat4 GetViewMatrix();
-	glm::mat4 GetProjectionMatrix();
-
-	void GoForward(float deltaTime);
-	void GoBack(float deltaTime);
-	void GoLeft(float deltaTime);
-	void GoRight(float deltaTime);
-
 private:
-	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
-	glm::mat4 rotationMatrix;
+    void UpdateCameraVectors();
 
-	float radius;
-	float aspecRation;
-	float FOV;
-	float near;
-	float far;
-	float theta;
-	float phi;
-	float cameraSpeed;
-	float zoom_factor;
+public:
+    // camera Attributes
+    glm::vec3 Position;
+    glm::vec3 Front;
+    glm::vec3 Up;
+    glm::vec3 Right;
+    glm::vec3 WorldUp;
+    // euler Angles
+    float Yaw;
+    float Pitch;
+    // camera options
+    float MovementSpeed;
+    float MouseSensitivity;
+    float Zoom;
 
-	glm::vec3 eye; // pozycja oka w ukladzie swiata
-	glm::vec3 center; // punkt na ktory patrzymy
-	glm::vec3 up; // wektor do gory
+    Camera();
+
+    glm::mat4 GetViewMatrix();
+    void ProcessKeyboard(Camera_Movement direction, float deltaTime);
+    void ProcessMouseMovement(float xoffset, float yoffset);
+
 };
 

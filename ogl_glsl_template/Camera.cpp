@@ -1,62 +1,65 @@
 #include "Camera.h"
 
-Camera::Camera(int WindowWidth, int windowHeight) 
+Camera::Camera() 
+    :Front(glm::vec3(0.0f, 0.0f, -1.0f))
 {
-	viewMatrix = glm::mat4(1.0f);
-	projectionMatrix = glm::mat4(1.0f);
-	rotationMatrix = glm::mat4(1.0f);
+	Position = glm::vec3(0.0f, 0.0f, -3.0f);
+    WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    Yaw = 90.0f;
+    Pitch = 0.0f;;
 
-	radius = 8.0f;
-	aspecRation = WindowWidth / windowHeight;
-	FOV = 45.0f;
-	near = 1.0f;
-	far = 100.0f;
-	theta = 0.0f;
-	phi = 90.0f;
-	cameraSpeed = 5.0f;
-	zoom_factor = 1.1f;
+    MovementSpeed = 2.5f;
+    MouseSensitivity = 0.1f;
+    Zoom = 45.0f;
 
-	eye = glm::vec3(0.0f, 0.0f, 3.0f);
-	center = glm::vec3(0.0f, 0.0f, -1.0f);
-	up = glm::vec3(0.0f, 1.0f, 0.0f);
+    UpdateCameraVectors();
 }
 
-void Camera::SetViewMatrix()
+// returns the view matrix calculated using Euler Angles and the LookAt Matrix
+glm::mat4 Camera::GetViewMatrix()
 {
-	viewMatrix = glm::lookAt(eye, center, up);
+    return glm::lookAt(Position, Position + Front, Up);
 }
 
-void Camera::SetProjectionMatrix()
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
-	projectionMatrix = glm::perspective(glm::radians(FOV), aspecRation, near, far);
+    float velocity = MovementSpeed * deltaTime;
+    if (direction == FORWARD)
+        Position += Front * velocity;
+    if (direction == BACKWARD)
+        Position -= Front * velocity;
+    if (direction == LEFT)
+        Position -= Right * velocity;
+    if (direction == RIGHT)
+        Position += Right * velocity;
 }
 
-glm::mat4 Camera::GetViewMatrix() 
+void Camera::ProcessMouseMovement(float xoffset, float yoffset)
 {
-	return viewMatrix;
+    xoffset *= MouseSensitivity;
+    yoffset *= MouseSensitivity;
+
+    Yaw += xoffset;
+    Pitch += yoffset;
+
+        if (Pitch > 89.0f)
+            Pitch = 89.0f;
+        if (Pitch < -89.0f)
+            Pitch = -89.0f;
+
+    // update Front, Right and Up Vectors using the updated Euler angles
+    UpdateCameraVectors();
 }
 
-glm::mat4 Camera::GetProjectionMatrix()
+void Camera::UpdateCameraVectors()
 {
-	return projectionMatrix;
-}
-
-void Camera::GoForward(float deltaTime)
-{
-	eye += center * cameraSpeed * deltaTime;
-}
-
-void Camera::GoBack(float deltaTime)
-{
-	eye -= center * cameraSpeed * deltaTime;
-}
-
-void Camera::GoLeft(float deltaTime)
-{
-	eye -= glm::normalize(glm::cross(center, up)) * cameraSpeed * deltaTime;
-}
-
-void Camera::GoRight(float deltaTime)
-{
-	eye += glm::normalize(glm::cross(center, up)) * cameraSpeed * deltaTime;
+    // calculate the new Front vector
+    glm::vec3 front;
+    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    front.y = sin(glm::radians(Pitch));
+    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    Front = glm::normalize(front);
+    // also re-calculate the Right and Up vector
+    Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+    Up = glm::normalize(glm::cross(Right, Front));
 }

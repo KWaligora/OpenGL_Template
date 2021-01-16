@@ -80,24 +80,24 @@ void Floor::SetTexture(const wchar_t* filename)
 	Texture tex;
 	texture = tex.SetupTextures(filename);
 }
-void Floor::Render(Camera* camera) 
+void Floor::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
 	glUseProgram(FloorShaderProg);
 
 	//Macierz modelu
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	GLint ModelLoc = glGetUniformLocation(FloorShaderProg, "model");
 	glUniformMatrix4fv(ModelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 	//Macierze widoku i projekcji
 	GLuint projLoc = glGetUniformLocation(FloorShaderProg, "proj");
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 	GLuint viewLoc = glGetUniformLocation(FloorShaderProg, "view");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
 	//tekstury
 	texSamplerLoc = glGetUniformLocation(FloorShaderProg, "texSampler");

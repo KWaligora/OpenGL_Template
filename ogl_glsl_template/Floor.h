@@ -8,7 +8,7 @@ class Floor
 public:
 	Floor();
 
-	void Render(Camera* camera);
+	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	void SetTexture(const wchar_t* filename);
 	~Floor();
 	
