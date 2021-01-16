@@ -4,17 +4,18 @@
 #include <iostream>
 
 #include "Camera.h" // operacje na macierzach projekcji i widoku
-#include "Floor.h"
+#include "Plain.h"
 
 constexpr int WIDTH = 600; // szerokosc okna
 constexpr int HEIGHT = 600; // wysokosc okna
 //******************************************************************************************
 Camera* camera; // operacje na macierzach projekcji i widoku
-Floor* plane;
+Plain* plane;
 //******************************************************************************************
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 //******************************************************************************************
+//mouse input
 float lastX = WIDTH / 2.0f;
 float lastY = HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -191,7 +192,7 @@ void initGL()
 	glEnable(GL_DEPTH_TEST);
 
 	camera = new Camera();
-	plane = new Floor();
+	plane = new Plain();
 }
 
 /*------------------------------------------------------------------------------------------

@@ -31,7 +31,7 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Floor.cpp">
+    <ClCompile Include="Plain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,7 +45,7 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Floor.h">
+    <ClInclude Include="Plain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -148,14 +148,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="Plain.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shaders.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Floor.h" />
+    <ClInclude Include="Plain.h" />
     <ClInclude Include="shaders.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>

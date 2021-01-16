@@ -3,14 +3,14 @@
 #include <GL/glew.h>
 #include "GLFW/glfw3.h"
 
-class Floor
+class Plain
 {
 public:
-	Floor();
+	Plain();
 
 	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	void SetTexture(const wchar_t* filename);
-	~Floor();
+	~Plain();
 	
 
 private:

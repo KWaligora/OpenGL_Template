@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Floor.h"
+#include "Plain.h"
 #include "Texture.h"
 #include "shaders.h"
 
-Floor::Floor() 
+Plain::Plain()
 {
 	SetShader();
 	SetBuffers();
@@ -12,7 +12,7 @@ Floor::Floor()
 	texture = tex.SetupTextures(L"textures/diffuse.png");
 }
 
-void Floor::SetShader()
+void Plain::SetShader()
 {
 	if (!setupShaders("shaders/floor.vert", "shaders/floor.frag", FloorShaderProg))
 		exit(3);
@@ -20,7 +20,7 @@ void Floor::SetShader()
 	colorLoc = glGetAttribLocation(FloorShaderProg, "vColor");
 	texSamplerLoc = glGetAttribLocation(FloorShaderProg, "texSampler");
 }
-void Floor::SetBuffers() 
+void Plain::SetBuffers()
 {
 
 	// wspolrzedne wierzcholkow pod³ogi
@@ -75,12 +75,12 @@ void Floor::SetBuffers()
 
 	glBindVertexArray(0);
 }
-void Floor::SetTexture(const wchar_t* filename)
+void Plain::SetTexture(const wchar_t* filename)
 {
 	Texture tex;
 	texture = tex.SetupTextures(filename);
 }
-void Floor::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
+void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
 	glUseProgram(FloorShaderProg);
 
@@ -114,7 +114,7 @@ void Floor::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-Floor::~Floor() 
+Plain::~Plain()
 {
 	glDeleteProgram(FloorShaderProg); // usuniecie programu cieniowania
 	glDeleteBuffers(3, vbo);
