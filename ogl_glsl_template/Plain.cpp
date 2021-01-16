@@ -16,11 +16,11 @@ Plain::Plain()
 
 void Plain::SetShader()
 {
-	if (!setupShaders("shaders/floor.vert", "shaders/floor.frag", FloorShaderProg))
+	if (!setupShaders("shaders/floor.vert", "shaders/floor.frag", PlainShaderProg))
 		exit(3);
 
-	colorLoc = glGetAttribLocation(FloorShaderProg, "vColor");
-	texSamplerLoc = glGetAttribLocation(FloorShaderProg, "texSampler");
+	colorLoc = glGetAttribLocation(PlainShaderProg, "vColor");
+	texSamplerLoc = glGetAttribLocation(PlainShaderProg, "texSampler");
 }
 void Plain::SetBuffers()
 {
@@ -97,20 +97,20 @@ void Plain::SetTranslation(glm::vec3 translation)
 
 void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
-	glUseProgram(FloorShaderProg);	
+	glUseProgram(PlainShaderProg);
 
-	GLint ModelLoc = glGetUniformLocation(FloorShaderProg, "model");
+	GLint ModelLoc = glGetUniformLocation(PlainShaderProg, "model");
 	glUniformMatrix4fv(ModelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 	//Macierze widoku i projekcji
-	GLuint projLoc = glGetUniformLocation(FloorShaderProg, "proj");
+	GLuint projLoc = glGetUniformLocation(PlainShaderProg, "proj");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
-	GLuint viewLoc = glGetUniformLocation(FloorShaderProg, "view");
+	GLuint viewLoc = glGetUniformLocation(PlainShaderProg, "view");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 
 	//tekstury
-	texSamplerLoc = glGetUniformLocation(FloorShaderProg, "texSampler");
+	texSamplerLoc = glGetUniformLocation(PlainShaderProg, "texSampler");
 	glUniform1i(texSamplerLoc, 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -126,7 +126,7 @@ void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 Plain::~Plain()
 {
-	glDeleteProgram(FloorShaderProg); // usuniecie programu cieniowania
+	glDeleteProgram(PlainShaderProg); // usuniecie programu cieniowania
 	glDeleteBuffers(3, vbo);
 	glDeleteVertexArrays(1, &vao);
 	glDeleteTextures(1, &texture);
