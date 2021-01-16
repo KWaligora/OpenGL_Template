@@ -186,7 +186,7 @@ void initGL()
 	std::cout << "GL_VERSION = " << glGetString( GL_VERSION ) << std::endl;
 	std::cout << "GLSL = " << glGetString( GL_SHADING_LANGUAGE_VERSION ) << std::endl;
 
-	glClearColor( 0.0f, 0.0f, 0.0f, 1.0f ); // kolor uzywany do czyszczenia bufora koloru
+	glClearColor(0.0f, 0.5f, 1.0f, 1.0f); // kolor uzywany do czyszczenia bufora koloru
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -200,6 +200,8 @@ void initGL()
 void renderScene()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // czyszczenie bufora koloru
+
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(camera->Zoom), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+
 	plane->Render(projectionMatrix, camera->GetViewMatrix());
 }

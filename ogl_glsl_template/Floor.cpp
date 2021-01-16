@@ -26,10 +26,10 @@ void Floor::SetBuffers()
 	// wspolrzedne wierzcholkow pod³ogi
 	float vertices[]
 	{
-		-0.5f, 0.5f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.0f, 1.0f,
-		0.5f, 0.5f, 0.0f, 1.0f,
-		0.5f, -0.5f, 0.0f, 1.0f,
+		-10.0f, 10.0f, 0.0f, 1.0f,
+		-10.0f, -10.0f, 0.0f, 1.0f,
+		10.0f, 10.0f, 0.0f, 1.0f,
+		10.0f, -10.0f, 0.0f, 1.0f,
 	};
 
 	// kolory wierzchokow pod³ogi
@@ -87,7 +87,7 @@ void Floor::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	//Macierz modelu
 	glm::mat4 modelMatrix = glm::mat4(1.0f);
 
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	GLint ModelLoc = glGetUniformLocation(FloorShaderProg, "model");
 	glUniformMatrix4fv(ModelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));

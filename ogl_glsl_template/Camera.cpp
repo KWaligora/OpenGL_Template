@@ -3,7 +3,7 @@
 Camera::Camera() 
     :Front(glm::vec3(0.0f, 0.0f, -1.0f))
 {
-	Position = glm::vec3(0.0f, 0.0f, -3.0f);
+	Position = glm::vec3(0.0f, 1.0f, -3.0f);
     WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
     Yaw = 90.0f;
     Pitch = 0.0f;;
