@@ -160,7 +160,10 @@ void Plain::Bilbording(glm::vec3 camPos)
 	if (newNormal != normal)
 	{
 		float angle = glm::acos(glm::dot(normal, newNormal));
+
 		if (newNormal.x - normal.x > 0)
+			angle *= -1;
+		if (camPos.z > position.z)
 			angle *= -1;
 
 		modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
