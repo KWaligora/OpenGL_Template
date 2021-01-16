@@ -9,5 +9,8 @@ out vec4 fColor; // wyjsciowy kolor fragmentu
  
 void main()
 {
-    fColor = texture(texSampler, texCoord);
+    vec4 texColor = texture(texSampler, texCoord);
+    if(texColor.a < 0.5)
+        discard;
+    fColor = texColor;
 }
