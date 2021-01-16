@@ -194,12 +194,12 @@ void initGL()
 
 	camera = new Camera();
 	ground = new Plain();
-	canvas = new Plain();
+	canvas = new Plain("shaders/bush.vert", "shaders/bush.frag");
 
 	ground->SetScale(glm::vec3(30.0f, 30.0f, 30.0f));
 	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
-	canvas->SetTexture(L"textures/fire.png");
+	canvas->SetTexture(L"textures/bush1.png");
 	canvas->SetTranslation(glm::vec3(0.0f, 1.0f, 0.0f));
 }
 

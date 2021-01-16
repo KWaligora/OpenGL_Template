@@ -9,7 +9,7 @@ class Plain
 {
 public:
 	Plain();
-	Plain(std::string vert, std::string frag, GLuint prog);
+	Plain(std::string vert, std::string frag);
 
 	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	void SetTexture(const wchar_t* filename);
@@ -31,7 +31,7 @@ private:
 
 	glm::mat4 modelMatrix;
 
-	void SetShader(std::string vert, std::string frag, GLuint &prog);
+	void SetShader(std::string vert, std::string frag);
 	void SetBuffers();
 };
 

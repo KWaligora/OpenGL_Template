@@ -5,7 +5,7 @@
 
 Plain::Plain()
 {
-	SetShader("shaders/floor.vert", "shaders/floor.frag", PlainShaderProg);
+	SetShader("shaders/floor.vert", "shaders/floor.frag");
 	SetBuffers();
 
 	Texture tex;
@@ -14,9 +14,9 @@ Plain::Plain()
 	modelMatrix = glm::mat4(1.0f);
 }
 
-Plain::Plain(std::string vert, std::string frag, GLuint prog)
+Plain::Plain(std::string vert, std::string frag)
 {
-	SetShader(vert, frag, prog);
+	SetShader(vert, frag);
 	SetBuffers();
 
 	Texture tex;
@@ -25,9 +25,9 @@ Plain::Plain(std::string vert, std::string frag, GLuint prog)
 	modelMatrix = glm::mat4(1.0f);
 }
 
-void Plain::SetShader(std::string vert, std::string frag, GLuint &prog)
+void Plain::SetShader(std::string vert, std::string frag)
 {
-	if (!setupShaders(vert, frag, prog))
+	if (!setupShaders(vert, frag, PlainShaderProg))
 		exit(3);
 
 	colorLoc = glGetAttribLocation(PlainShaderProg, "vColor");
@@ -88,6 +88,7 @@ void Plain::SetBuffers()
 
 	glBindVertexArray(0);
 }
+
 void Plain::SetTexture(const wchar_t* filename)
 {
 	Texture tex;

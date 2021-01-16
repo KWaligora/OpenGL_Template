@@ -160,6 +160,8 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="exe_dir\shaders\bush.frag" />
+    <None Include="exe_dir\shaders\bush.vert" />
     <None Include="exe_dir\shaders\floor.frag" />
     <None Include="exe_dir\shaders\floor.vert" />
   </ItemGroup>
