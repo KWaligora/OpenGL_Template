@@ -156,12 +156,13 @@ void Plain::Bilbording(glm::vec3 camPos)
 {
 	glm::vec3 newNormal = camPos - position;
 
-	std::cout << camPos.x << " ";
-
 	newNormal = glm::normalize(newNormal);
 	if (newNormal != normal)
 	{
 		float angle = glm::acos(glm::dot(normal, newNormal));
+		if (newNormal.x - normal.x > 0)
+			angle *= -1;
+
 		modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		normal = newNormal;
