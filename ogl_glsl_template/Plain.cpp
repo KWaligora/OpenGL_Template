@@ -5,7 +5,7 @@
 
 Plain::Plain()
 {
-	SetShader();
+	SetShader("shaders/floor.vert", "shaders/floor.frag", PlainShaderProg);
 	SetBuffers();
 
 	Texture tex;
@@ -14,9 +14,20 @@ Plain::Plain()
 	modelMatrix = glm::mat4(1.0f);
 }
 
-void Plain::SetShader()
+Plain::Plain(std::string vert, std::string frag, GLuint prog)
 {
-	if (!setupShaders("shaders/floor.vert", "shaders/floor.frag", PlainShaderProg))
+	SetShader(vert, frag, prog);
+	SetBuffers();
+
+	Texture tex;
+	texture = tex.SetupTextures(L"textures/diffuse.png");
+
+	modelMatrix = glm::mat4(1.0f);
+}
+
+void Plain::SetShader(std::string vert, std::string frag, GLuint &prog)
+{
+	if (!setupShaders(vert, frag, prog))
 		exit(3);
 
 	colorLoc = glGetAttribLocation(PlainShaderProg, "vColor");
