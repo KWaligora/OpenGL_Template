@@ -193,8 +193,6 @@ void initGL()
 
 	camera = new Camera();
 	ground = new Plain();
-	ground->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
-	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 /*------------------------------------------------------------------------------------------

@@ -86,10 +86,13 @@ void Plain::SetScale(glm::vec3 scale)
 {
 	modelMatrix = glm::scale(modelMatrix, scale);
 }
-
 void Plain::SetRotation(float rotation, glm::vec3 axis)
 {
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), axis);
+}
+void Plain::SetTranslation(glm::vec3 translation)
+{
+	modelMatrix = glm::translate(modelMatrix, translation);
 }
 
 void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)

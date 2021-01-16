@@ -12,6 +12,7 @@ public:
 	void SetTexture(const wchar_t* filename);
 	void SetScale(glm::vec3 scale);
 	void SetRotation(float rotation, glm::vec3 axis);
+	void SetTranslation(glm::vec3 translation);
 	~Plain();
 	
 
