@@ -10,6 +10,8 @@ Plain::Plain()
 
 	Texture tex;
 	texture = tex.SetupTextures(L"textures/diffuse.png");
+
+	modelMatrix = glm::mat4(1.0f);
 }
 
 void Plain::SetShader()
@@ -26,10 +28,10 @@ void Plain::SetBuffers()
 	// wspolrzedne wierzcholkow pod³ogi
 	float vertices[]
 	{
-		-10.0f, 10.0f, 0.0f, 1.0f,
-		-10.0f, -10.0f, 0.0f, 1.0f,
-		10.0f, 10.0f, 0.0f, 1.0f,
-		10.0f, -10.0f, 0.0f, 1.0f,
+		-1.0f, 1.0f, 0.0f, 1.0f,
+		-1.0f, -1.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, -1.0f, 0.0f, 1.0f,
 	};
 
 	// kolory wierzchokow pod³ogi
@@ -80,14 +82,19 @@ void Plain::SetTexture(const wchar_t* filename)
 	Texture tex;
 	texture = tex.SetupTextures(filename);
 }
+void Plain::SetScale(glm::vec3 scale)
+{
+	modelMatrix = glm::scale(modelMatrix, scale);
+}
+
+void Plain::SetRotation(float rotation, glm::vec3 axis)
+{
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), axis);
+}
+
 void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
-	glUseProgram(FloorShaderProg);
-
-	//Macierz modelu
-	glm::mat4 modelMatrix = glm::mat4(1.0f);
-
-	modelMatrix = glm::rotate(modelMatrix, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glUseProgram(FloorShaderProg);	
 
 	GLint ModelLoc = glGetUniformLocation(FloorShaderProg, "model");
 	glUniformMatrix4fv(ModelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));

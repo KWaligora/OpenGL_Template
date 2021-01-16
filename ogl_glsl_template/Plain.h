@@ -10,6 +10,8 @@ public:
 
 	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	void SetTexture(const wchar_t* filename);
+	void SetScale(glm::vec3 scale);
+	void SetRotation(float rotation, glm::vec3 axis);
 	~Plain();
 	
 
@@ -22,6 +24,8 @@ private:
 	GLuint vbo[3];
 
 	GLuint texture;
+
+	glm::mat4 modelMatrix;
 
 	void SetShader();
 	void SetBuffers();

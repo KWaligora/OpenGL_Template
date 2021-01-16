@@ -10,7 +10,7 @@ constexpr int WIDTH = 600; // szerokosc okna
 constexpr int HEIGHT = 600; // wysokosc okna
 //******************************************************************************************
 Camera* camera; // operacje na macierzach projekcji i widoku
-Plain* plane;
+Plain* ground;
 //******************************************************************************************
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -173,7 +173,7 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 void onShutdown()
 {
 	delete camera;
-	delete plane;
+	delete ground;
 }
 
 /*------------------------------------------------------------------------------------------
@@ -192,7 +192,9 @@ void initGL()
 	glEnable(GL_DEPTH_TEST);
 
 	camera = new Camera();
-	plane = new Plain();
+	ground = new Plain();
+	ground->SetScale(glm::vec3(2.0f, 2.0f, 2.0f));
+	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 /*------------------------------------------------------------------------------------------
@@ -203,6 +205,6 @@ void renderScene()
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // czyszczenie bufora koloru
 
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(camera->Zoom), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
-
-	plane->Render(projectionMatrix, camera->GetViewMatrix());
+	
+	ground->Render(projectionMatrix, camera->GetViewMatrix());
 }
