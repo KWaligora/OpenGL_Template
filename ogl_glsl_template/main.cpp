@@ -214,10 +214,17 @@ void initGL()
 
 	for (int i = 0; i < bushesCount; i++)
 	{
+		
+		bushes[i] = new Plain("shaders/bush.vert", "shaders/bush.frag");
+
+		int texNr = rand() % 2;
+		if(texNr == 1)
+			bushes[i]->SetTexture(L"textures/bush1.png");
+		else
+			bushes[i]->SetTexture(L"textures/bush2.png");
+
 		float x = (rand() % 50) - 25;
 		float z = (rand() % 50) - 25;
-		bushes[i] = new Plain("shaders/bush.vert", "shaders/bush.frag");
-		bushes[i]->SetTexture(L"textures/bush1.png");
 		bushes[i]->SetTranslation(glm::vec3(x, 1.0f, z));
 	}
 }
