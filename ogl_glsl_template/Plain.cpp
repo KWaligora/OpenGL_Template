@@ -165,10 +165,11 @@ void Plain::Bilbording(glm::vec3 camPos)
 			angle *= -1;
 		if (camPos.z > position.z)
 			angle *= -1;
-
-		modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-
-		normal = newNormal;
+		if (!isnan(angle))
+		{
+			modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+			normal = newNormal;
+		}
 	}
 }
 
