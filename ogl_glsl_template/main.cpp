@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <IL/il.h>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 #include "Camera.h" // operacje na macierzach projekcji i widoku
 #include "Plain.h"
@@ -12,6 +14,8 @@ constexpr int HEIGHT = 600; // wysokosc okna
 Camera* camera; // operacje na macierzach projekcji i widoku
 Plain* ground;
 Plain* canvas;
+const int bushesCount = 30;
+Plain* bushes[bushesCount];
 //******************************************************************************************
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -34,6 +38,8 @@ void renderScene();
 int main(int argc, char* argv[])
 {
 	atexit( onShutdown );
+
+	srand(time(NULL));
 
 	GLFWwindow* window;
 
@@ -175,6 +181,10 @@ void onShutdown()
 {
 	delete camera;
 	delete ground;
+	for (int i = 0; i < bushesCount; i++)
+	{
+		delete bushes[i];
+	}
 }
 
 /*------------------------------------------------------------------------------------------
@@ -201,6 +211,15 @@ void initGL()
 
 	canvas->SetTexture(L"textures/bush1.png");
 	canvas->SetTranslation(glm::vec3(0.0f, 1.0f, 0.0f));	
+
+	for (int i = 0; i < bushesCount; i++)
+	{
+		float x = (rand() % 50) - 25;
+		float z = (rand() % 50) - 25;
+		bushes[i] = new Plain("shaders/bush.vert", "shaders/bush.frag");
+		bushes[i]->SetTexture(L"textures/bush1.png");
+		bushes[i]->SetTranslation(glm::vec3(x, 1.0f, z));
+	}
 }
 
 /*------------------------------------------------------------------------------------------
@@ -215,4 +234,9 @@ void renderScene()
 	ground->Render(projectionMatrix, camera->GetViewMatrix());
 	canvas->Bilbording(camera->getCameraPos());
 	canvas->Render(projectionMatrix, camera->GetViewMatrix());
+	for (int i = 0; i < bushesCount; i++)
+	{
+		bushes[i]->Bilbording(camera->getCameraPos());
+		bushes[i]->Render(projectionMatrix, camera->GetViewMatrix());
+	}
 }

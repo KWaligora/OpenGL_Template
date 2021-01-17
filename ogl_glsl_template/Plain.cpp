@@ -119,6 +119,9 @@ void Plain::SetTranslation(glm::vec3 translation)
 {
 	modelMatrix = glm::translate(modelMatrix, translation);
 	position += translation;
+
+	if (position.z < 0)
+		normal.z = 1.0f;
 }
 
 void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
