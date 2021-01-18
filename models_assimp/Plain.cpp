@@ -117,7 +117,7 @@ void Plain::SetTranslation(glm::vec3 translation)
 		normal.z = 1.0f;
 }
 
-void Plain::Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
+void Plain::Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
 	glUseProgram(PlainShaderProg);
 

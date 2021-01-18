@@ -30,23 +30,29 @@ class Model
 	GLuint texSamplerLoc; // lokalizacja samplera
 	GLuint texture;
 
-	bool ImportModelFromFile(const std::string& filename, Assimp::Importer& importer, const aiScene** scene);
-	void ModelFromScene(const aiScene* scene, GLint vertexLoc, GLint normalLoc);
-	void ComputeBoundingBox();
-	void ComputeCentroid(const aiScene* scene);
-
 public:
+	Model();
 	Model(const std::string& filename, GLint vertexLoc = 0, GLint normalLoc = 1);
+	Model(const aiScene *scene, GLint vertexLoc = 0, GLint normalLoc = 1);
+	~Model();
 
-	void Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
-	glm::vec3 GetBBmin() const;
-	glm::vec3 GetBBmax() const;
-	glm::vec3 GetCentroid() const;
+	void draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
+	Mesh* getMesh(unsigned int n) const;
+	unsigned int getNumberOfMeshes() const;
+	glm::vec3 getBBmin() const;
+	glm::vec3 getBBmax() const;
+	glm::vec3 getCentroid() const;
 	void SetShader(std::string vert, std::string frag);
 	void SetTexture(const wchar_t* filename);
 	void SetScale(glm::vec3 scale);
 	void SetRotation(float rotation, glm::vec3 axis);
 	void SetTranslation(glm::vec3 translation);
+
+private:
+	bool importModelFromFile( const std::string& filename, Assimp::Importer& importer, const aiScene **scene );
+	void modelFromScene(const aiScene *scene, GLint vertexLoc, GLint normalLoc);
+	void computeBoundingBox();
+	void computeCentroid(const aiScene *scene);
 };
 
 #endif /*__MODEL_H__*/

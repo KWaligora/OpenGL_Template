@@ -11,7 +11,7 @@ public:
 	Plain();
 	Plain(std::string vert, std::string frag);
 
-	void Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
+	void Render(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	void SetTexture(const wchar_t* filename);
 	void SetScale(glm::vec3 scale);
 	void SetRotation(float rotation, glm::vec3 axis);
