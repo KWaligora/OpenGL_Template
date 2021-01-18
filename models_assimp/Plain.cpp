@@ -2,7 +2,6 @@
 #include "Plain.h"
 #include "Texture.h"
 #include "shaders.h"
-#include <iostream>
 
 Plain::Plain()
 {
@@ -30,8 +29,6 @@ Plain::Plain(std::string vert, std::string frag)
 	rotationMatrix = glm::mat4(1.0f);
 	position = glm::vec3(0.0f, 0.0f, 0.0f);
 	normal = glm::vec3(0.0f, 0.0f, -1.0f);
-
-
 }
 
 void Plain::SetShader(std::string vert, std::string frag)
@@ -110,10 +107,6 @@ void Plain::SetScale(glm::vec3 scale)
 void Plain::SetRotation(float rotation, glm::vec3 axis)
 {
 	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), axis);
-
-	/*rotationMatrix = glm::rotate(rotationMatrix, glm::radians(rotation), axis);
-	normal = glm::normalize(rotationMatrix * glm::vec4(normal, 1.0f));*/
-
 }
 void Plain::SetTranslation(glm::vec3 translation)
 {

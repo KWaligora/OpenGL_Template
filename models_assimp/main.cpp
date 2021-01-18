@@ -7,6 +7,7 @@
 
 #include "Camera.h" // operacje na macierzach projekcji i widoku
 #include "Plain.h"
+#include "model.h"
 
 constexpr int WIDTH = 600; // szerokosc okna
 constexpr int HEIGHT = 600; // wysokosc okna
@@ -24,6 +25,10 @@ float lastFrame = 0.0f;
 float lastX = WIDTH / 2.0f;
 float lastY = HEIGHT / 2.0f;
 bool firstMouse = true;
+//******************************************************************************************
+const std::string modelName = "models/dragon.obj";
+
+Model* model;
 //******************************************************************************************
 
 float aspectRatio = static_cast<float>(WIDTH) / HEIGHT;

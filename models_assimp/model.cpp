@@ -1,13 +1,16 @@
+#include "model.h"
 #include <iostream>
 #include <fstream>
-
-#include "model.h"
+#include "shaders.h"
+#include "Texture.h"
 
 Model::Model()
 {
 	bbMin = glm::vec3( 0.0 );
 	bbMax = glm::vec3( 0.0 );
 	centroid = glm::vec3( 0.0 );
+
+	modelMatrix = glm::mat4(1.0f);
 }
 
 Model::Model(const std::string& filename, GLint vertexLoc, GLint normalLoc)
@@ -17,11 +20,14 @@ Model::Model(const std::string& filename, GLint vertexLoc, GLint normalLoc)
 
 	if( importModelFromFile( filename, importer, &scene ) )
 		modelFromScene( scene, vertexLoc, normalLoc );
+
+	modelMatrix = glm::mat4(1.0f);
 }
 
 Model::Model(const aiScene *scene, GLint vertexLoc, GLint normalLoc)
 {
 	modelFromScene( scene, vertexLoc, normalLoc );
+	modelMatrix = glm::mat4(1.0f);
 }
 
 Model::~Model()
@@ -30,10 +36,31 @@ Model::~Model()
 		delete meshes[i];
 }
 
-void Model::draw() const
+void Model::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
+	glUseProgram(shaderProg);
+
+	// macierz modelu
+	GLint ModelLoc = glGetUniformLocation(shaderProg, "model");
+	glUniformMatrix4fv(ModelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+	// macierze widoku i projekcji
+	GLuint projLoc = glGetUniformLocation(shaderProg, "proj");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+	GLuint viewLoc = glGetUniformLocation(shaderProg, "view");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+	//tekstury
+	texSamplerLoc = glGetUniformLocation(shaderProg, "texSampler");
+	glUniform1i(texSamplerLoc, 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
 	for( unsigned int i = 0; i < meshes.size(); ++i )
 		meshes[i]->draw();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Mesh* Model::getMesh(unsigned int n) const
@@ -59,6 +86,36 @@ glm::vec3 Model::getBBmax() const
 glm::vec3 Model::getCentroid() const
 {
 	return centroid;
+}
+
+void Model::SetShader(std::string vert, std::string frag)
+{
+	if (!setupShaders(vert, frag, shaderProg))
+		exit(3);
+
+	colorLoc = glGetAttribLocation(shaderProg, "vColor");
+	texSamplerLoc = glGetAttribLocation(shaderProg, "texSampler");
+}
+
+void Model::SetTexture(const wchar_t* filename)
+{
+	Texture tex;
+	texture = tex.SetupTextures(filename);
+}
+
+void Model::SetScale(glm::vec3 scale)
+{
+	modelMatrix = glm::scale(modelMatrix, scale);
+}
+
+void Model::SetRotation(float rotation, glm::vec3 axis)
+{
+	modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation), axis);
+}
+
+void Model::SetTranslation(glm::vec3 translation)
+{
+	modelMatrix = glm::translate(modelMatrix, translation);
 }
 
 bool Model::importModelFromFile( const std::string& filename, Assimp::Importer& importer, const aiScene **scene )
