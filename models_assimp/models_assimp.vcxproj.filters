@@ -48,24 +48,6 @@
     <None Include="exe_dir\shaders\vertex.vert">
       <Filter>shaders</Filter>
     </None>
-    <None Include="exe_dir\shaders\bush.frag">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="exe_dir\shaders\bush.vert">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="exe_dir\shaders\floor.frag">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="exe_dir\shaders\floor.vert">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="exe_dir\shaders\model.frag">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="exe_dir\shaders\model.vert">
-      <Filter>shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shaders.h">
