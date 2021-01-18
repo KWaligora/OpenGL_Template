@@ -251,7 +251,9 @@ void PrepereModel()
 	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
 	Modelscale = glm::vec3(7.0 / maxExtent);
 
-	model->SetScale(Modelscale);
+	model->SetScale(Modelscale); \
+	model->SetTranslation(glm::vec3(2.0f, 2.0f, 5.0f));
+	model->SetTexture(L"textures/diffuse.png");
 }
 
 void PrepereBushes()
