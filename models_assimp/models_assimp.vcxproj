@@ -157,7 +157,13 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="exe_dir\shaders\bush.frag" />
+    <None Include="exe_dir\shaders\bush.vert" />
+    <None Include="exe_dir\shaders\floor.frag" />
+    <None Include="exe_dir\shaders\floor.vert" />
     <None Include="exe_dir\shaders\fragment.frag" />
+    <None Include="exe_dir\shaders\model.frag" />
+    <None Include="exe_dir\shaders\model.vert" />
     <None Include="exe_dir\shaders\vertex.vert" />
   </ItemGroup>
   <ItemGroup>

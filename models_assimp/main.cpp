@@ -29,6 +29,7 @@ bool firstMouse = true;
 const std::string modelName = "models/dragon.obj";
 
 Model* model;
+glm::vec3 Modelscale;
 //******************************************************************************************
 
 float aspectRatio = static_cast<float>(WIDTH) / HEIGHT;
@@ -232,6 +233,15 @@ void initGL()
 		float z = (rand() % 50) - 25;
 		bushes[i]->SetTranslation(glm::vec3(x, 1.0f, z));
 	}
+
+	model = new Model(modelName);
+	model->SetShader("shaders/model.vert", "shaders/model.frag");
+
+	glm::vec3 extent = glm::abs(model->getBBmax() - model->getBBmin());
+	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
+	Modelscale = glm::vec3(7.0 / maxExtent);
+
+	model->SetScale(Modelscale);
 }
 
 /*------------------------------------------------------------------------------------------
@@ -251,4 +261,6 @@ void renderScene()
 		bushes[i]->Bilbording(camera->getCameraPos());
 		bushes[i]->Render(projectionMatrix, camera->GetViewMatrix());
 	}
+	
+	model->draw(projectionMatrix, camera->GetViewMatrix());
 }
