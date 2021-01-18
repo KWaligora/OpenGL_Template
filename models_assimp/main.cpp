@@ -40,6 +40,9 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 void onShutdown();
 void initGL();
 void renderScene();
+void PrepereBushes();
+void RenderBushes(glm::mat4 projectionMatrix);
+void PreperModel();
 
 int main(int argc, char* argv[])
 {
@@ -212,39 +215,14 @@ void initGL()
 	ground = new Plain();
 	canvas = new Plain("shaders/bush.vert", "shaders/bush.frag");
 
+	PrepereBushes();
+	PreperModel();
+
 	ground->SetScale(glm::vec3(30.0f, 30.0f, 30.0f));
 	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 	canvas->SetTexture(L"textures/bush1.png");
 	canvas->SetTranslation(glm::vec3(0.0f, 1.0f, 0.0f));	
-
-	for (int i = 0; i < bushesCount; i++)
-	{
-		
-		bushes[i] = new Plain("shaders/bush.vert", "shaders/bush.frag");
-
-		int texNr = rand() % 2;
-		if(texNr == 1)
-			bushes[i]->SetTexture(L"textures/bush1.png");
-		else
-			bushes[i]->SetTexture(L"textures/bush2.png");
-
-		float x = (rand() % 50) - 25;
-		float z = (rand() % 50) - 25;
-		bushes[i]->SetTranslation(glm::vec3(x, 1.0f, z));
-	}
-
-	model = new Model(modelName);
-	model->SetShader("shaders/model.vert", "shaders/model.frag");
-
-	glm::vec3 extent = glm::abs(model->GetBBmax() - model->GetBBmin());
-	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
-	Modelscale = glm::vec3(7.0 / maxExtent);
-	model->SetTexture(L"textures/diffuse.png");
-	model->SetScale(Modelscale);
-	model->SetTranslation(-model->GetCentroid());
-	model->SetTranslation(glm::vec3(2.0f, 2.0f, 5.0f));
-
 }
 
 /*------------------------------------------------------------------------------------------
@@ -260,11 +238,50 @@ void renderScene()
 
 	canvas->Bilbording(camera->getCameraPos());
 	canvas->Draw(projectionMatrix, camera->GetViewMatrix());
+	
+	RenderBushes(projectionMatrix);
+	model->Draw(projectionMatrix, camera->GetViewMatrix());
+}
+
+void PrepereBushes()
+{
+	for (int i = 0; i < bushesCount; i++)
+	{
+
+		bushes[i] = new Plain("shaders/bush.vert", "shaders/bush.frag");
+
+		int texNr = rand() % 2;
+		if (texNr == 1)
+			bushes[i]->SetTexture(L"textures/bush1.png");
+		else
+			bushes[i]->SetTexture(L"textures/bush2.png");
+
+		float x = (rand() % 50) - 25;
+		float z = (rand() % 50) - 25;
+		bushes[i]->SetTranslation(glm::vec3(x, 1.0f, z));
+	}
+}
+
+void RenderBushes(glm::mat4 projectionMatrix)
+{
 	for (int i = 0; i < bushesCount; i++)
 	{
 		bushes[i]->Bilbording(camera->getCameraPos());
 		bushes[i]->Draw(projectionMatrix, camera->GetViewMatrix());
 	}
-	
-	model->Draw(projectionMatrix, camera->GetViewMatrix());
+}
+
+void PreperModel()
+{
+	model = new Model(modelName);
+	model->SetShader("shaders/model.vert", "shaders/model.frag");
+
+	glm::vec3 extent = glm::abs(model->GetBBmax() - model->GetBBmin());
+	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
+	Modelscale = glm::vec3(7.0 / maxExtent);
+
+	model->SetTexture(L"textures/diffuse.png");
+	model->SetScale(Modelscale);
+	model->SetTranslation(-model->GetCentroid());
+	model->SetTranslation(glm::vec3(2.0f, 2.0f, 5.0f));
 }
