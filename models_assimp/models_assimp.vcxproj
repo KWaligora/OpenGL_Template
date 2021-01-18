@@ -23,6 +23,7 @@
     <ProjectGuid>{3F25A67E-89C5-45CD-BF67-5248649929FE}</ProjectGuid>
     <RootNamespace>oglglsltemplate</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>World_Template</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -156,7 +157,13 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="exe_dir\shaders\bush.frag" />
+    <None Include="exe_dir\shaders\bush.vert" />
+    <None Include="exe_dir\shaders\floor.frag" />
+    <None Include="exe_dir\shaders\floor.vert" />
     <None Include="exe_dir\shaders\fragment.frag" />
+    <None Include="exe_dir\shaders\model.frag" />
+    <None Include="exe_dir\shaders\model.vert" />
     <None Include="exe_dir\shaders\vertex.vert" />
   </ItemGroup>
   <ItemGroup>
