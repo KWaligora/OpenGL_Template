@@ -20,9 +20,9 @@ public:
 	Mesh(const aiMesh *mesh, GLint vertexLoc = 0, GLint normalLoc = 1);
 	~Mesh();
 
-	void draw() const;
-	glm::vec3 getBBmin() const;
-	glm::vec3 getBBmax() const;
+	void Draw() const;
+	glm::vec3 GetBBmin() const;
+	glm::vec3 GetBBmax() const;
 };
 
 #endif /*__MESH_H__*/

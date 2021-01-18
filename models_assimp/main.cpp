@@ -237,11 +237,14 @@ void initGL()
 	model = new Model(modelName);
 	model->SetShader("shaders/model.vert", "shaders/model.frag");
 
-	glm::vec3 extent = glm::abs(model->getBBmax() - model->getBBmin());
+	glm::vec3 extent = glm::abs(model->GetBBmax() - model->GetBBmin());
 	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
 	Modelscale = glm::vec3(7.0 / maxExtent);
-
+	model->SetTexture(L"textures/diffuse.png");
 	model->SetScale(Modelscale);
+	model->SetTranslation(-model->GetCentroid());
+	model->SetTranslation(glm::vec3(2.0f, 2.0f, 5.0f));
+
 }
 
 /*------------------------------------------------------------------------------------------
@@ -253,14 +256,15 @@ void renderScene()
 
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(camera->Zoom), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 	
-	ground->Render(projectionMatrix, camera->GetViewMatrix());
+	ground->Draw(projectionMatrix, camera->GetViewMatrix());
+
 	canvas->Bilbording(camera->getCameraPos());
-	canvas->Render(projectionMatrix, camera->GetViewMatrix());
+	canvas->Draw(projectionMatrix, camera->GetViewMatrix());
 	for (int i = 0; i < bushesCount; i++)
 	{
 		bushes[i]->Bilbording(camera->getCameraPos());
-		bushes[i]->Render(projectionMatrix, camera->GetViewMatrix());
+		bushes[i]->Draw(projectionMatrix, camera->GetViewMatrix());
 	}
 	
-	model->draw(projectionMatrix, camera->GetViewMatrix());
+	model->Draw(projectionMatrix, camera->GetViewMatrix());
 }

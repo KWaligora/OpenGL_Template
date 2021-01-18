@@ -105,19 +105,19 @@ Mesh::~Mesh()
 	glDeleteVertexArrays( 1, &vao );
 }
 
-void Mesh::draw() const
+void Mesh::Draw() const
 {
 	glBindVertexArray( vao );
 	glDrawElements( GL_TRIANGLES, 3 * numTriangles, GL_UNSIGNED_INT, 0 ); 
 	glBindVertexArray( 0 );
 }
 
-glm::vec3 Mesh::getBBmin() const
+glm::vec3 Mesh::GetBBmin() const
 {
 	return bbMin;
 }
 
-glm::vec3 Mesh::getBBmax() const
+glm::vec3 Mesh::GetBBmax() const
 {
 	return bbMax;
 }
