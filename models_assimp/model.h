@@ -32,6 +32,12 @@ class Model
 	GLuint texture;
 
 public:
+	// material obiektu
+	glm::vec3 materialAmbient = glm::vec3(1.0f, 0.5f, 0.0f);
+	glm::vec3 materialDiffuse = glm::vec3(0.34615f, 0.3143f, 0.0903f);
+	glm::vec3 materialSpecular = glm::vec3(0.797357, 0.723991, 0.208006);
+	float shininess = 83.2f;
+
 	Model();
 	Model(const std::string& filename, GLint vertexLoc = 0, GLint normalLoc = 1);
 	Model(const aiScene *scene, GLint vertexLoc = 0, GLint normalLoc = 1);

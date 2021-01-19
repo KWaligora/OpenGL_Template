@@ -134,6 +134,20 @@ void Model::SetLight(Light light, glm::mat4 viewMatrix)
 	glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(light.lightAmbient));
 	glUniform3fv(lightDiffuseLoc, 1, glm::value_ptr(light.lightDiffuse));
 	glUniform3fv(lightSpecularLoc, 1, glm::value_ptr(light.lightSpecular));
+
+	GLuint materialAmbientLoc = glGetUniformLocation(shaderProg, "materialAmbient");
+	GLuint materialDiffuseLoc = glGetUniformLocation(shaderProg, "materialDiffuse");
+	GLuint materialSpecularLoc = glGetUniformLocation(shaderProg, "materialSpecular");
+	GLuint materialShininessLoc = glGetUniformLocation(shaderProg, "materialShininess");
+
+	glUniform3fv(materialDiffuseLoc, 1, glm::value_ptr(materialDiffuse));
+	glUniform3fv(materialAmbientLoc, 1, glm::value_ptr(materialAmbient));
+	glUniform3fv(materialSpecularLoc, 1, glm::value_ptr(materialSpecular));
+	glUniform1f(materialShininessLoc, shininess);
+
+	GLuint normalMatrixLoc = glGetUniformLocation(shaderProg, "normalMatrix");
+	glm::mat3 normalMatrix = glm::inverseTranspose(glm::mat3(mvMatrix));
+	glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 }
 
 bool Model::importModelFromFile( const std::string& filename, Assimp::Importer& importer, const aiScene **scene )

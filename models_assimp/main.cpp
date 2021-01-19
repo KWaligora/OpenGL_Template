@@ -249,7 +249,7 @@ void PrepereModel()
 	Modelscale = glm::vec3(7.0 / maxExtent);
 
 	model->SetScale(Modelscale);
-	model->SetTranslation(glm::vec3(2.0f, 2.0f, 5.0f));
+	model->SetTranslation(glm::vec3(0.0f, 1.0f, 5.0f));
 	model->SetTexture(L"textures/diffuse.png");
 }
 
