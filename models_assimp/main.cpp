@@ -217,8 +217,10 @@ void initGL()
 	light = new Light();
 	ground = new Plain();
 
+	light->lightAmbient = glm::vec3(1.0f, 1.0f, 1.0f);
+
 	ground->SetScale(glm::vec3(30.0f, 30.0f, 30.0f));
-	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));	
+	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
 	PrepereModel();
 	PrepereBushes();
@@ -244,13 +246,18 @@ void PrepereModel()
 	model = new Model(modelName);
 	model->SetShader("shaders/model.vert", "shaders/model.frag");
 
+	model->materialAmbient = glm::vec3(0.3f, 0.3f, 0.3f);
+	model->materialDiffuse = glm::vec3(0.6f, 0.6f, 0.6f);
+
 	glm::vec3 extent = glm::abs(model->getBBmax() - model->getBBmin());
 	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
 	Modelscale = glm::vec3(7.0 / maxExtent);
 
-	model->SetScale(Modelscale);
-	model->SetTranslation(glm::vec3(0.0f, 1.0f, 5.0f));
+	model->SetTranslation(-model->getCentroid());
+	model->SetTranslation(glm::vec3(0.0f, 2.3f, 5.0f));
+	model->SetRotation(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model->SetTexture(L"textures/diffuse.png");
+	model->SetScale(Modelscale);
 }
 
 void PrepereBushes()
