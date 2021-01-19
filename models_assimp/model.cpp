@@ -36,7 +36,7 @@ Model::~Model()
 		delete meshes[i];
 }
 
-void Model::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
+void Model::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Light light)
 {
 	glUseProgram(shaderProg);
 
@@ -50,6 +50,8 @@ void Model::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 	GLuint viewLoc = glGetUniformLocation(shaderProg, "view");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+	SetLight(light, viewMatrix);
 
 	//tekstury
 	texSamplerLoc = glGetUniformLocation(shaderProg, "texSampler");
@@ -88,16 +90,6 @@ glm::vec3 Model::getCentroid() const
 	return centroid;
 }
 
-glm::mat4 Model::GetModelMatrix()
-{
-	return modelMatrix;
-}
-
-GLuint Model::GetShaderProgram()
-{
-	return shaderProg;
-}
-
 void Model::SetShader(std::string vert, std::string frag)
 {
 	if (!setupShaders(vert, frag, shaderProg))
@@ -126,6 +118,22 @@ void Model::SetRotation(float rotation, glm::vec3 axis)
 void Model::SetTranslation(glm::vec3 translation)
 {
 	modelMatrix = glm::translate(modelMatrix, translation);
+}
+
+void Model::SetLight(Light light, glm::mat4 viewMatrix)
+{
+	glm::mat4 mvMatrix = viewMatrix * modelMatrix;
+	glm::vec4 lightPosition = mvMatrix * light.lightPosition; // przejscie do wspolrzednych oka
+
+	GLuint lightPositionLoc = glGetUniformLocation(shaderProg, "lightPosition");
+	GLuint lightAmbientLoc = glGetUniformLocation(shaderProg, "lightAmbient");
+	GLuint lightDiffuseLoc = glGetUniformLocation(shaderProg, "lightDiffuse");
+	GLuint lightSpecularLoc = glGetUniformLocation(shaderProg, "lightSpecular");
+
+	glUniform4fv(lightPositionLoc, 1, glm::value_ptr(lightPosition));
+	glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(light.lightAmbient));
+	glUniform3fv(lightDiffuseLoc, 1, glm::value_ptr(light.lightDiffuse));
+	glUniform3fv(lightSpecularLoc, 1, glm::value_ptr(light.lightSpecular));
 }
 
 bool Model::importModelFromFile( const std::string& filename, Assimp::Importer& importer, const aiScene **scene )

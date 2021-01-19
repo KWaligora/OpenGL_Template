@@ -14,21 +14,6 @@ void Light::SetLightPos(glm::vec3 postion)
 	lightPosition = glm::vec4(postion, 1.0f);
 }
 
-void Light::SetAmbient(glm::vec3 ambient)
-{
-	lightAmbient = ambient;
-}
-
-void Light::SetDiffuse(glm::vec3 diffuse)
-{
-	lightDiffuse = diffuse;
-}
-
-void Light::SetSpecular(glm::vec3 specular)
-{
-	lightSpecular = specular;
-}
-
 // wyslanie informacji o swietle do shadera
 void Light::SendData(GLuint shaderProgram, glm::mat4 modelMatrix, glm::mat4 viewMatrix)
 {

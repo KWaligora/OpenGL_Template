@@ -14,6 +14,7 @@
 #include <assimp/Scene.h>
 
 #include "mesh.h"
+#include "Light.h"
 
 class Model
 {
@@ -36,19 +37,18 @@ public:
 	Model(const aiScene *scene, GLint vertexLoc = 0, GLint normalLoc = 1);
 	~Model();
 
-	void draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
+	void draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Light light);
 	Mesh* getMesh(unsigned int n) const;
 	unsigned int getNumberOfMeshes() const;
 	glm::vec3 getBBmin() const;
 	glm::vec3 getBBmax() const;
 	glm::vec3 getCentroid() const;
-	glm::mat4 GetModelMatrix();
-	GLuint GetShaderProgram();
 	void SetShader(std::string vert, std::string frag);
 	void SetTexture(const wchar_t* filename);
 	void SetScale(glm::vec3 scale);
 	void SetRotation(float rotation, glm::vec3 axis);
 	void SetTranslation(glm::vec3 translation);
+	void SetLight(Light light, glm::mat4 viewMatrix);
 
 private:
 	bool importModelFromFile( const std::string& filename, Assimp::Importer& importer, const aiScene **scene );
