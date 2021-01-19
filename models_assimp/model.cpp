@@ -93,6 +93,11 @@ glm::mat4 Model::GetModelMatrix()
 	return modelMatrix;
 }
 
+GLuint Model::GetShaderProgram()
+{
+	return shaderProg;
+}
+
 void Model::SetShader(std::string vert, std::string frag)
 {
 	if (!setupShaders(vert, frag, shaderProg))
