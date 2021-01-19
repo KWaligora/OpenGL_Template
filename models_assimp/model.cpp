@@ -88,6 +88,11 @@ glm::vec3 Model::getCentroid() const
 	return centroid;
 }
 
+glm::mat4 Model::GetModelMatrix()
+{
+	return modelMatrix;
+}
+
 void Model::SetShader(std::string vert, std::string frag)
 {
 	if (!setupShaders(vert, frag, shaderProg))

@@ -42,6 +42,7 @@ public:
 	glm::vec3 getBBmin() const;
 	glm::vec3 getBBmax() const;
 	glm::vec3 getCentroid() const;
+	glm::mat4 GetModelMatrix();
 	void SetShader(std::string vert, std::string frag);
 	void SetTexture(const wchar_t* filename);
 	void SetScale(glm::vec3 scale);
