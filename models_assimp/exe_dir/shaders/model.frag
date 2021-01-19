@@ -15,8 +15,6 @@ out vec4 fColor; // wyjsciowy kolor fragmentu
  
 void main()
 {
-//    vec4 texColor = texture(texSampler, texCoord);
-//    fColor = texColor;
-
-	fColor = vec4(lightDiffuse, 1.0f);
+    vec4 texColor = texture(texSampler, texCoord);
+    fColor = texColor;
 }

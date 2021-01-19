@@ -217,8 +217,6 @@ void initGL()
 	light = new Light();
 	ground = new Plain();
 
-	light->lightDiffuse = glm::vec3(0.0f, 1.0f, 0.0f);
-
 	ground->SetScale(glm::vec3(30.0f, 30.0f, 30.0f));
 	ground->SetRotation(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));	
 
