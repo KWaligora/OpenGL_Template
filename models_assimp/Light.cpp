@@ -30,10 +30,18 @@ void Light::SetSpecular(glm::vec3 specular)
 }
 
 // wyslanie informacji o swietle do shadera
-void Light::SendData(std::string fragmentShader, glm::mat4 modelMatrix, glm::mat4 viewMatrix)
+void Light::SendData(GLuint shaderProgram, glm::mat4 modelMatrix, glm::mat4 viewMatrix)
 {
 	glm::mat4 mvMatrix = viewMatrix * modelMatrix;
 	lightPosition = mvMatrix * lightPosition; // przejscie do wspolrzednych oka
 
+	GLuint lightPositionLoc = glGetUniformLocation(shaderProgram, "lightPosition");
+	GLuint lightAmbientLoc = glGetUniformLocation(shaderProgram, "lightAmbient");
+	GLuint lightDiffuseLoc = glGetUniformLocation(shaderProgram, "lightDiffuse");
+	GLuint lightSpecularLoc = glGetUniformLocation(shaderProgram, "lightSpecular");
 
+	glUniform4fv(lightPositionLoc, 1, glm::value_ptr(lightPosition));
+	glUniform3fv(lightAmbientLoc, 1, glm::value_ptr(lightAmbient));
+	glUniform3fv(lightDiffuseLoc, 1, glm::value_ptr(lightDiffuse));
+	glUniform3fv(lightSpecularLoc, 1, glm::value_ptr(lightSpecular));
 }
