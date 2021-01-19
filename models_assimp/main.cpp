@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include "Camera.h" // operacje na macierzach projekcji i widoku
+#include "Light.h"
 #include "Plain.h"
 #include "model.h"
 
@@ -13,6 +14,7 @@ constexpr int WIDTH = 600; // szerokosc okna
 constexpr int HEIGHT = 600; // wysokosc okna
 //******************************************************************************************
 Camera* camera; // operacje na macierzach projekcji i widoku
+Light* light;
 Plain* ground;
 const int bushesCount = 30;
 Plain* bushes[bushesCount];
@@ -188,6 +190,7 @@ void keyCallback( GLFWwindow* window, int key, int scancode, int action, int mod
 void onShutdown()
 {
 	delete camera;
+	delete light;
 	delete ground;
 	for (int i = 0; i < bushesCount; i++)
 	{
@@ -211,6 +214,7 @@ void initGL()
 	glEnable(GL_DEPTH_TEST);
 
 	camera = new Camera();
+	light = new Light();
 	ground = new Plain();
 
 	ground->SetScale(glm::vec3(30.0f, 30.0f, 30.0f));
@@ -244,7 +248,7 @@ void PrepereModel()
 	float maxExtent = glm::max(glm::max(extent.x, extent.y), extent.z);
 	Modelscale = glm::vec3(7.0 / maxExtent);
 
-	model->SetScale(Modelscale); \
+	model->SetScale(Modelscale);
 	model->SetTranslation(glm::vec3(2.0f, 2.0f, 5.0f));
 	model->SetTexture(L"textures/diffuse.png");
 }

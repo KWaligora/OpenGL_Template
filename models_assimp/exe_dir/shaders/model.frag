@@ -1,5 +1,5 @@
 #version 330
- 
+
 uniform sampler2D texSampler;
 
 in vec4 color; // kolor interpolowany z shadera wierzcholkow
