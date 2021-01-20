@@ -53,7 +53,7 @@ void Model::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix, Light light)
 
 	SetLight(light, viewMatrix);
 
-	//tekstury
+	// tekstury
 	texSamplerLoc = glGetUniformLocation(shaderProg, "texSampler");
 	glUniform1i(texSamplerLoc, 0);
 	glActiveTexture(GL_TEXTURE0);
@@ -120,9 +120,10 @@ void Model::SetTranslation(glm::vec3 translation)
 	modelMatrix = glm::translate(modelMatrix, translation);
 }
 
+// przesyla informacje o oswietleniu i materiale do shadera
 void Model::SetLight(Light light, glm::mat4 viewMatrix)
 {
-	glm::mat4 mvMatrix = viewMatrix * modelMatrix;
+	glm::mat4 mvMatrix = viewMatrix * modelMatrix; //macierz modelu-widoku
 	glm::vec4 lightPosition = mvMatrix * light.lightPosition; // przejscie do wspolrzednych oka
 
 	GLuint lightPositionLoc = glGetUniformLocation(shaderProg, "lightPosition");

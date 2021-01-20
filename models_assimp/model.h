@@ -3,7 +3,6 @@
 
 #include <GL/glew.h>
 #include "GLFW/glfw3.h"
-#include <glm\glm.hpp>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -32,7 +31,7 @@ class Model
 	GLuint texture;
 
 public:
-	// material obiektu
+	// wlasciwosci materialu obiektu
 	glm::vec3 materialAmbient = glm::vec3(1.0f, 0.5f, 0.0f);
 	glm::vec3 materialDiffuse = glm::vec3(0.34615f, 0.3143f, 0.0903f);
 	glm::vec3 materialSpecular = glm::vec3(0.797357, 0.723991, 0.208006);
@@ -54,7 +53,7 @@ public:
 	void SetScale(glm::vec3 scale);
 	void SetRotation(float rotation, glm::vec3 axis);
 	void SetTranslation(glm::vec3 translation);
-	void SetLight(Light light, glm::mat4 viewMatrix);
+	void SetLight(Light light, glm::mat4 viewMatrix); // przesyla informacje o oswietleniu i materiale do shadera
 
 private:
 	bool importModelFromFile( const std::string& filename, Assimp::Importer& importer, const aiScene **scene );
