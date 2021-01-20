@@ -45,12 +45,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="exe_dir\shaders\fragment.frag">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="exe_dir\shaders\vertex.vert">
-      <Filter>shaders</Filter>
-    </None>
     <None Include="exe_dir\shaders\bush.frag">
       <Filter>shaders</Filter>
     </None>

@@ -1,6 +1,5 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <IL/il.h>
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -13,7 +12,7 @@
 constexpr int WIDTH = 600; // szerokosc okna
 constexpr int HEIGHT = 600; // wysokosc okna
 //******************************************************************************************
-Camera* camera; // operacje na macierzach projekcji i widoku
+Camera* camera;
 Light* light;
 Plain* ground;
 const int bushesCount = 30;
@@ -22,11 +21,12 @@ Plain* bushes[bushesCount];
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 //******************************************************************************************
-//mouse input
+// wejscie myszy
 float lastX = WIDTH / 2.0f;
 float lastY = HEIGHT / 2.0f;
 bool firstMouse = true;
 //******************************************************************************************
+// ladowanie modeli
 const std::string modelName = "models/dragon.obj";
 
 Model* model;
@@ -256,8 +256,9 @@ void PrepereModel()
 	model->SetTranslation(-model->getCentroid());
 	model->SetTranslation(glm::vec3(0.0f, 2.3f, 5.0f));
 	model->SetRotation(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-	model->SetTexture(L"textures/diffuse.png");
 	model->SetScale(Modelscale);
+
+	model->SetTexture(L"textures/diffuse.png");
 }
 
 void PrepereBushes()
