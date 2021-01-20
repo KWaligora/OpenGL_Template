@@ -30,7 +30,7 @@ Plain::Plain(std::string vert, std::string frag)
 	position = glm::vec3(0.0f, 0.0f, 0.0f);
 	normal = glm::vec3(0.0f, 0.0f, -1.0f);
 }
-
+// wskazuje z ktorego shadera ma korzystac obiekt
 void Plain::SetShader(std::string vert, std::string frag)
 {
 	if (!setupShaders(vert, frag, PlainShaderProg))
@@ -39,6 +39,8 @@ void Plain::SetShader(std::string vert, std::string frag)
 	colorLoc = glGetAttribLocation(PlainShaderProg, "vColor");
 	texSamplerLoc = glGetAttribLocation(PlainShaderProg, "texSampler");
 }
+
+// definiuje atrybuty wierzcholka 
 void Plain::SetBuffers()
 {
 
@@ -144,16 +146,14 @@ void Plain::Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 	glBindVertexArray(0);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-
-	
 }
 
 void Plain::Bilbording(glm::vec3 camPos)
 {
-	glm::vec3 newNormal = camPos - position;
+	glm::vec3 newNormal = camPos - position; // wyznaczenie wektora normalnego po uwzglednieniu obrotu
 
 	newNormal = glm::normalize(newNormal);
-	if (newNormal != normal)
+	if (newNormal != normal) // sprawdzenie czy trzeba dokonac rotacji obiektu
 	{
 		float angle = glm::acos(glm::dot(normal, newNormal));
 
@@ -167,11 +167,6 @@ void Plain::Bilbording(glm::vec3 camPos)
 			normal = newNormal;
 		}
 	}
-}
-
-void Plain::PrintVector(glm::vec3 vector)
-{
-	std::cout << "Current Position: " << vector.x << " " << vector.y << " " << vector.z<<std::endl;
 }
 
 Plain::~Plain()

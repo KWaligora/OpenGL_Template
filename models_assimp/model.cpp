@@ -32,6 +32,7 @@ Model::Model(const aiScene *scene, GLint vertexLoc, GLint normalLoc)
 
 Model::~Model()
 {
+	glDeleteTextures(1, &texture);
 	for( unsigned int i = 0; i < meshes.size(); ++i )
 		delete meshes[i];
 }
