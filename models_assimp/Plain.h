@@ -8,6 +8,7 @@
 class Plain
 {
 public:
+
 	Plain();
 	Plain(std::string vert, std::string frag);
 

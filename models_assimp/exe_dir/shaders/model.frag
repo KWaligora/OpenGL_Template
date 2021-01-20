@@ -37,8 +37,8 @@ void main()
 	vec3 specular = vec3( 0.0, 0.0, 0.0 );
 	if( dot( lightDir, viewDir ) > 0.0 )
 	{
-		vec3 refl = reflect( vec3( 0.0, 0.0, 0.0 ) - lightDir, norm );
-		specular = pow( max( 0.0, dot( viewDir, refl ) ), materialShininess ) * materialSpecular * lightSpecular;
+		vec3 halfVector = normalize(lightDir + viewDir);
+		specular = pow( max( 0.0, dot( norm, halfVector ) ), materialShininess ) * materialSpecular * lightSpecular;
 	}
 
     fColor = vec4( clamp( ambient + diffuse + specular, 0.0, 1.0 ), 1.0 ) * texColor;
