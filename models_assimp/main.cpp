@@ -235,7 +235,7 @@ void renderScene()
 
 	glm::mat4 projectionMatrix = glm::perspective(glm::radians(camera->Zoom), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 	
-	ground->Render(projectionMatrix, camera->GetViewMatrix());
+	ground->Draw(projectionMatrix, camera->GetViewMatrix());
 	
 	RenderBushes(projectionMatrix);
 	model->draw(projectionMatrix, camera->GetViewMatrix(), *light);
@@ -285,6 +285,6 @@ void RenderBushes(glm::mat4 projectionMatrix)
 	for (int i = 0; i < bushesCount; i++)
 	{
 		bushes[i]->Bilbording(camera->getCameraPos());
-		bushes[i]->Render(projectionMatrix, camera->GetViewMatrix());
+		bushes[i]->Draw(projectionMatrix, camera->GetViewMatrix());
 	}
 }
