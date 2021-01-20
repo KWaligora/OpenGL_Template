@@ -6,7 +6,7 @@
 #include <glm/ext.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
-// Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
+// definiuje opcje poruszania "wsad"
 enum Camera_Movement
 {
     FORWARD,
@@ -21,16 +21,18 @@ private:
     void UpdateCameraVectors();
 
 public:
-    // camera Attributes
+    // wektory
     glm::vec3 Position;
     glm::vec3 Front;
     glm::vec3 Up;
     glm::vec3 Right;
     glm::vec3 WorldUp;
-    // euler Angles
+
+    // euler
     float Yaw;
     float Pitch;
-    // camera options
+
+    // wlasciwosci kamery
     float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
@@ -38,8 +40,8 @@ public:
     Camera();
 
     glm::mat4 GetViewMatrix();
-    void ProcessKeyboard(Camera_Movement direction, float deltaTime);
-    void ProcessMouseMovement(float xoffset, float yoffset);
+    void ProcessKeyboard(Camera_Movement direction, float deltaTime); // poruszanie "wsad"
+    void ProcessMouseMovement(float xoffset, float yoffset); // poruszanie mysza
     glm::vec3 getCameraPos();
 
 };
