@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 	glfwSwapInterval( 1 ); // v-sync on
 
 	initGL();
-
+	
 	// glowna petla programu
 	while( !glfwWindowShouldClose( window ) )
 	{
