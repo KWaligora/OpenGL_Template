@@ -34,7 +34,7 @@ private:
 	glm::mat4 modelMatrix;
 	glm::mat4 rotationMatrix;
 	glm::vec3 position; //  aktualna pozycja obiektu
-	glm::vec3 normal;
+	glm::vec3 front;
 
 	void SetShader(std::string vert, std::string frag); // wskazuje z ktorego shadera ma korzystac obiekt
 	void SetBuffers(); // definiuje atrybuty wierzcholka 

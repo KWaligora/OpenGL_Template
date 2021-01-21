@@ -58,7 +58,7 @@ namespace glm
 	GLM_FUNC_DECL vec<3, T, Q> rotate(
 		vec<3, T, Q> const& v,
 		T const& angle,
-		vec<3, T, Q> const& normal);
+		vec<3, T, Q> const& front);
 
 	//! Rotate a four dimensional vector around an axis.
 	//! From GLM_GTX_rotate_vector extension.
@@ -66,7 +66,7 @@ namespace glm
 	GLM_FUNC_DECL vec<4, T, Q> rotate(
 		vec<4, T, Q> const& v,
 		T const& angle,
-		vec<3, T, Q> const& normal);
+		vec<3, T, Q> const& front);
 
 	//! Rotate a three dimensional vector around the X axis.
 	//! From GLM_GTX_rotate_vector extension.

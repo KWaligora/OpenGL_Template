@@ -66,12 +66,12 @@ namespace glm
 	//! Build planar projection matrix along normal axis.
 	//! From GLM_GTX_transform2 extension.
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL mat<3, 3, T, Q> proj2D(mat<3, 3, T, Q> const& m, vec<3, T, Q> const& normal);
+	GLM_FUNC_DECL mat<3, 3, T, Q> proj2D(mat<3, 3, T, Q> const& m, vec<3, T, Q> const& front);
 
 	//! Build planar projection matrix along normal axis.
 	//! From GLM_GTX_transform2 extension.
 	template<typename T, qualifier Q>
-	GLM_FUNC_DECL mat<4, 4, T, Q> proj3D(mat<4, 4, T, Q> const & m, vec<3, T, Q> const& normal);
+	GLM_FUNC_DECL mat<4, 4, T, Q> proj3D(mat<4, 4, T, Q> const & m, vec<3, T, Q> const& front);
 
 	//! Build a scale bias matrix.
 	//! From GLM_GTX_transform2 extension.

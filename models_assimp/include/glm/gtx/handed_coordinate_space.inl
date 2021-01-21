@@ -7,10 +7,10 @@ namespace glm
 	(
 		vec<3, T, Q> const& tangent,
 		vec<3, T, Q> const& binormal,
-		vec<3, T, Q> const& normal
+		vec<3, T, Q> const& front
 	)
 	{
-		return dot(cross(normal, tangent), binormal) > T(0);
+		return dot(cross(front, tangent), binormal) > T(0);
 	}
 
 	template<typename T, qualifier Q>
@@ -18,9 +18,9 @@ namespace glm
 	(
 		vec<3, T, Q> const& tangent,
 		vec<3, T, Q> const& binormal,
-		vec<3, T, Q> const& normal
+		vec<3, T, Q> const& front
 	)
 	{
-		return dot(cross(normal, tangent), binormal) < T(0);
+		return dot(cross(front, tangent), binormal) < T(0);
 	}
 }//namespace glm

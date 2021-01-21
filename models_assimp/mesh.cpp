@@ -65,11 +65,11 @@ Mesh::Mesh(const aiMesh *mesh, GLint vertexLoc, GLint normalLoc)
 	k = 0;
 	for( unsigned int i = 0; i < mesh->mNumVertices; ++i )
 	{
-		const aiVector3D *normal = &mesh->mNormals[i];
+		const aiVector3D *front = &mesh->mNormals[i];
 
-		normals[k++] = normal->x;
-		normals[k++] = normal->y;
-		normals[k++] = normal->z;
+		normals[k++] = front->x;
+		normals[k++] = front->y;
+		normals[k++] = front->z;
 	}
 
 	glGenVertexArrays( 1, &vao );

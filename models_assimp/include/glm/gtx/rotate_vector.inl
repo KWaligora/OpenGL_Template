@@ -45,10 +45,10 @@ namespace glm
 	(
 		vec<3, T, Q> const& v,
 		T const& angle,
-		vec<3, T, Q> const& normal
+		vec<3, T, Q> const& front
 	)
 	{
-		return mat<3, 3, T, Q>(glm::rotate(angle, normal)) * v;
+		return mat<3, 3, T, Q>(glm::rotate(angle, front)) * v;
 	}
 	/*
 	template<typename T, qualifier Q>
@@ -67,10 +67,10 @@ namespace glm
 	(
 		vec<4, T, Q> const& v,
 		T const& angle,
-		vec<3, T, Q> const& normal
+		vec<3, T, Q> const& front
 	)
 	{
-		return rotate(angle, normal) * v;
+		return rotate(angle, front) * v;
 	}
 
 	template<typename T, qualifier Q>

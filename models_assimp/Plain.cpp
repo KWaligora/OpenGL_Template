@@ -14,7 +14,7 @@ Plain::Plain()
 	modelMatrix = glm::mat4(1.0f);
 	rotationMatrix = glm::mat4(1.0f);
 	position = glm::vec3(0.0f, 0.0f, 0.0f);
-	normal = glm::vec3(0.0f, 0.0f, -1.0f);
+	front = glm::vec3(0.0f, 0.0f, -1.0f);
 }
 
 Plain::Plain(std::string vert, std::string frag)
@@ -28,7 +28,7 @@ Plain::Plain(std::string vert, std::string frag)
 	modelMatrix = glm::mat4(1.0f);
 	rotationMatrix = glm::mat4(1.0f);
 	position = glm::vec3(0.0f, 0.0f, 0.0f);
-	normal = glm::vec3(0.0f, 0.0f, -1.0f);
+	front = glm::vec3(0.0f, 0.0f, -1.0f);
 }
 // wskazuje z ktorego shadera ma korzystac obiekt
 void Plain::SetShader(std::string vert, std::string frag)
@@ -115,8 +115,8 @@ void Plain::SetTranslation(glm::vec3 translation)
 	modelMatrix = glm::translate(modelMatrix, translation);
 	position += translation;
 
-	if (position.z < 0)
-		normal.z = 1.0f;
+	if (position.z < -3.0f) // odwrócenie wektora jezeli obiekt pojawia sie za plecami gracza
+		front.z = 1.0f;
 }
 
 void Plain::Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
@@ -153,18 +153,18 @@ void Plain::Bilbording(glm::vec3 camPos)
 	glm::vec3 newNormal = camPos - position; // wyznaczenie wektora normalnego po uwzglednieniu obrotu
 
 	newNormal = glm::normalize(newNormal);
-	if (newNormal != normal) // sprawdzenie czy trzeba dokonac rotacji obiektu
+	if (newNormal != front) // sprawdzenie czy trzeba dokonac rotacji obiektu
 	{
-		float angle = glm::acos(glm::dot(normal, newNormal));
+		float angle = glm::acos(glm::dot(front, newNormal));
 
-		if (newNormal.x - normal.x > 0)
+		if (newNormal.x - front.x > 0)
 			angle *= -1;
 		if (camPos.z > position.z)
 			angle *= -1;
 		if (!isnan(angle))
 		{
 			modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0.0f, 1.0f, 0.0f));
-			normal = newNormal;
+			front = newNormal;
 		}
 	}
 }

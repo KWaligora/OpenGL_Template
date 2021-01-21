@@ -46,62 +46,62 @@ namespace glm
 	}
 
 	template<typename T, qualifier Q>
-	GLM_FUNC_QUALIFIER mat<3, 3, T, Q> reflect2D(mat<3, 3, T, Q> const& m, vec<3, T, Q> const& normal)
+	GLM_FUNC_QUALIFIER mat<3, 3, T, Q> reflect2D(mat<3, 3, T, Q> const& m, vec<3, T, Q> const& front)
 	{
 		mat<3, 3, T, Q> r(static_cast<T>(1));
-		r[0][0] = static_cast<T>(1) - static_cast<T>(2) * normal.x * normal.x;
-		r[0][1] = -static_cast<T>(2) * normal.x * normal.y;
-		r[1][0] = -static_cast<T>(2) * normal.x * normal.y;
-		r[1][1] = static_cast<T>(1) - static_cast<T>(2) * normal.y * normal.y;
+		r[0][0] = static_cast<T>(1) - static_cast<T>(2) * front.x * front.x;
+		r[0][1] = -static_cast<T>(2) * front.x * front.y;
+		r[1][0] = -static_cast<T>(2) * front.x * front.y;
+		r[1][1] = static_cast<T>(1) - static_cast<T>(2) * front.y * front.y;
 		return m * r;
 	}
 
 	template<typename T, qualifier Q>
-	GLM_FUNC_QUALIFIER mat<4, 4, T, Q> reflect3D(mat<4, 4, T, Q> const& m, vec<3, T, Q> const& normal)
+	GLM_FUNC_QUALIFIER mat<4, 4, T, Q> reflect3D(mat<4, 4, T, Q> const& m, vec<3, T, Q> const& front)
 	{
 		mat<4, 4, T, Q> r(static_cast<T>(1));
-		r[0][0] = static_cast<T>(1) - static_cast<T>(2) * normal.x * normal.x;
-		r[0][1] = -static_cast<T>(2) * normal.x * normal.y;
-		r[0][2] = -static_cast<T>(2) * normal.x * normal.z;
+		r[0][0] = static_cast<T>(1) - static_cast<T>(2) * front.x * front.x;
+		r[0][1] = -static_cast<T>(2) * front.x * front.y;
+		r[0][2] = -static_cast<T>(2) * front.x * front.z;
 
-		r[1][0] = -static_cast<T>(2) * normal.x * normal.y;
-		r[1][1] = static_cast<T>(1) - static_cast<T>(2) * normal.y * normal.y;
-		r[1][2] = -static_cast<T>(2) * normal.y * normal.z;
+		r[1][0] = -static_cast<T>(2) * front.x * front.y;
+		r[1][1] = static_cast<T>(1) - static_cast<T>(2) * front.y * front.y;
+		r[1][2] = -static_cast<T>(2) * front.y * front.z;
 
-		r[2][0] = -static_cast<T>(2) * normal.x * normal.z;
-		r[2][1] = -static_cast<T>(2) * normal.y * normal.z;
-		r[2][2] = static_cast<T>(1) - static_cast<T>(2) * normal.z * normal.z;
+		r[2][0] = -static_cast<T>(2) * front.x * front.z;
+		r[2][1] = -static_cast<T>(2) * front.y * front.z;
+		r[2][2] = static_cast<T>(1) - static_cast<T>(2) * front.z * front.z;
 		return m * r;
 	}
 
 	template<typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER mat<3, 3, T, Q> proj2D(
 		const mat<3, 3, T, Q>& m,
-		const vec<3, T, Q>& normal)
+		const vec<3, T, Q>& front)
 	{
 		mat<3, 3, T, Q> r(static_cast<T>(1));
-		r[0][0] = static_cast<T>(1) - normal.x * normal.x;
-		r[0][1] = - normal.x * normal.y;
-		r[1][0] = - normal.x * normal.y;
-		r[1][1] = static_cast<T>(1) - normal.y * normal.y;
+		r[0][0] = static_cast<T>(1) - front.x * front.x;
+		r[0][1] = - front.x * front.y;
+		r[1][0] = - front.x * front.y;
+		r[1][1] = static_cast<T>(1) - front.y * front.y;
 		return m * r;
 	}
 
 	template<typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER mat<4, 4, T, Q> proj3D(
 		const mat<4, 4, T, Q>& m,
-		const vec<3, T, Q>& normal)
+		const vec<3, T, Q>& front)
 	{
 		mat<4, 4, T, Q> r(static_cast<T>(1));
-		r[0][0] = static_cast<T>(1) - normal.x * normal.x;
-		r[0][1] = - normal.x * normal.y;
-		r[0][2] = - normal.x * normal.z;
-		r[1][0] = - normal.x * normal.y;
-		r[1][1] = static_cast<T>(1) - normal.y * normal.y;
-		r[1][2] = - normal.y * normal.z;
-		r[2][0] = - normal.x * normal.z;
-		r[2][1] = - normal.y * normal.z;
-		r[2][2] = static_cast<T>(1) - normal.z * normal.z;
+		r[0][0] = static_cast<T>(1) - front.x * front.x;
+		r[0][1] = - front.x * front.y;
+		r[0][2] = - front.x * front.z;
+		r[1][0] = - front.x * front.y;
+		r[1][1] = static_cast<T>(1) - front.y * front.y;
+		r[1][2] = - front.y * front.z;
+		r[2][0] = - front.x * front.z;
+		r[2][1] = - front.y * front.z;
+		r[2][2] = static_cast<T>(1) - front.z * front.z;
 		return m * r;
 	}
 
