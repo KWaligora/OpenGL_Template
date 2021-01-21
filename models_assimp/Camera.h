@@ -42,7 +42,7 @@ public:
     glm::mat4 GetViewMatrix();
     void ProcessKeyboard(Camera_Movement direction, float deltaTime); // poruszanie "wsad"
     void ProcessMouseMovement(float xoffset, float yoffset); // poruszanie mysza
-    glm::vec3 getCameraPos();
+    glm::vec3 GetCameraPos();
 
 };
 

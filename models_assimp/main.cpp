@@ -136,7 +136,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	}
 
 	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	float yoffset = lastY - ypos;
 
 	lastX = xpos;
 	lastY = ypos;
@@ -274,8 +274,13 @@ void PrepereBushes()
 		else
 			bushes[i]->SetTexture(L"textures/bush2.png");
 
-		float x = (rand() % 50) - 25;
-		float z = (rand() % 50) - 25;
+		float x; // wspolrzedna x
+		float z; //wpolrzedna z
+		do
+		{
+			x = (rand() % 50) - 25;
+			z = (rand() % 50) - 25;
+		} while ((x <= 1.0f && x >= -1.0f) && (z >= -4.0f && z <= -2.0f)); //krzak nie pojawi sie na pozycji startowej gracza
 		bushes[i]->SetTranslation(glm::vec3(x, 1.0f, z));
 	}
 }
@@ -284,7 +289,7 @@ void RenderBushes(glm::mat4 projectionMatrix)
 {
 	for (int i = 0; i < bushesCount; i++)
 	{
-		bushes[i]->Bilbording(camera->getCameraPos());
+		bushes[i]->Bilbording(camera->GetCameraPos());
 		bushes[i]->Draw(projectionMatrix, camera->GetViewMatrix());
 	}
 }
